@@ -1,0 +1,37 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: '10.0.x'
+
+      # собираем один exe вместе с .NET, шаблончик рядом
+      - name: Publish
+        run: >-
+          dotnet publish WukongRunner.csproj -c Release -r win-x64
+          --self-contained true -p:PublishSingleFile=true
+          -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=None -o dist/app
+
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: >-
+          gh release create "$env:GITHUB_REF_NAME"
+          dist/app/WukongRunner.exe
+          dist/app/GameUserSettings.template.ini
+          --verify-tag
+          --title "$env:GITHUB_REF_NAME"
+          --notes "Под Windows x64. Скачайте EXE и INI в одну папку, затем запустите WukongRunner.exe"
