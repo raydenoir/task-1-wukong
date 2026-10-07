@@ -7,9 +7,12 @@ class Profile
 
     public int RenderPercent { get; set; }
 
-    // Low = 1 Cinematic = 5
+    // Low = 1, Cinematic = 5
     public int Quality { get; set; }
 
-    // 0 - выключаем, 3 - максимум
+    // Off = 0, Max = 3
     public int RayTracing { get; set; }
+
+    // Off = 0, Strong = 2
+    public int MotionBlur { get; set; }
 }

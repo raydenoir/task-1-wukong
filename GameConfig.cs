@@ -29,6 +29,7 @@ static class GameConfig
             .Replace("{RenderPercent}", profile.RenderPercent.ToString())
             .Replace("{Quality}", profile.Quality.ToString())
             .Replace("{EngineQuality}", engineQuality.ToString())
+            .Replace("{MotionBlur}", profile.MotionBlur.ToString())
             .Replace("{RayTracingEnabled}", rayTracingEnabled)
             .Replace("{RayTracing}", profile.RayTracing.ToString());
     }

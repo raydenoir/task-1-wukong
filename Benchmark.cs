@@ -112,7 +112,7 @@ static class Benchmark
             { "Rtx", profile.RayTracing },
             { "Dlss", 3 },
             { "InsertFrame", 0 },
-            { "MotionBlur", 0 }
+            { "MotionBlur", profile.MotionBlur }
         };
 
         // у эффектов один уровень качества, добавляем их одним циклом

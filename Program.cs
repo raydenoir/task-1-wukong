@@ -76,7 +76,8 @@ class Program
                     Height = 720,
                     RenderPercent = 25,
                     Quality = 1,
-                    RayTracing = 0
+                    RayTracing = 0,
+                    MotionBlur = 0
                 },
                 new Profile
                 {
@@ -85,7 +86,8 @@ class Program
                     Height = GetSystemMetrics(1),
                     RenderPercent = 100,
                     Quality = 5,
-                    RayTracing = 3
+                    RayTracing = 3,
+                    MotionBlur = 2
                 }
             };
 
@@ -197,6 +199,8 @@ class Program
         var quality = qualityNames[result.GetProperty("ShadowQuality").GetInt32()];
         var distance = qualityNames[result.GetProperty("ViewDistance").GetInt32()];
         var rt = result.GetProperty("Rtx").GetInt32();
+        string[] motionBlurNames = { "выключен", "Weak", "Strong" };
+        var motionBlur = motionBlurNames[result.GetProperty("MotionBlur").GetInt32()];
         var rtText = "выключен";
         if (rt > 0)
         {
@@ -214,7 +218,7 @@ class Program
             + $"Настройки: {result.GetProperty("ScreenResolution")}, "
             + $"рендер {result.GetProperty("ImageQuality")}%, {quality}, дальность {distance}, RT {rtText}.\n"
             + rtNote
-            + "TSR; генерация кадров, Motion Blur и VSync выключены; лимита FPS нет.\n"
+            + $"TSR; Motion Blur {motionBlur}; генерация кадров и VSync выключены; лимита FPS нет.\n"
             + $"FPS: средний {result.GetProperty("FPSAvg")}, "
             + $"минимум {result.GetProperty("FPSMin")}, максимум {result.GetProperty("FPSMax")}.\n"
             + $"Среднее время на кадр: CPU {cpuTime:F2} мс, GPU {gpuTime:F2} мс.\n"
